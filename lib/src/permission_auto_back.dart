@@ -22,7 +22,16 @@ bool get _isAndroid => defaultTargetPlatform == TargetPlatform.android;
 extension PermissionAutoBack on Permission {
   Future<PermissionStatus> requestWithAutoBack() async {
     if (!_isAndroid) {
-      return request();
+      // iOS / Web / Windows: permission_handler has a real implementation.
+      // Linux / macOS: permission_handler ships no platform impl and the
+      // method-channel call throws MissingPluginException — desktop
+      // platforms don't have a runtime-permission concept, so treat the
+      // permission as granted instead of bubbling the exception up.
+      try {
+        return await request();
+      } on MissingPluginException {
+        return PermissionStatus.granted;
+      }
     }
 
     // `locationAlways` needs a hybrid flow: `permission_handler.request()`
@@ -177,4 +186,12 @@ String? _permissionKey(Permission p) {
   if (p == Permission.activityRecognition) return 'activityRecognition';
   if (p == Permission.accessMediaLocation) return 'accessMediaLocation';
   return null;
+}
+
+/// Dart-only registrar used by Flutter's plugin tooling on Linux, macOS
+/// and Windows. The auto-back behaviour is Android-only and the
+/// non-Android flow lives entirely in [PermissionAutoBack.requestWithAutoBack],
+/// so [registerWith] has nothing to do.
+class PermissionHandlerAutoBackPlatform {
+  static void registerWith() {}
 }

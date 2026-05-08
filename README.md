@@ -17,6 +17,10 @@ on, it brings your app back to the foreground.
 On iOS the package is a thin re-export of `permission_handler` — iOS does not allow apps to come
 back to the foreground from Settings programmatically, so the auto-back behavior is Android-only.
 
+On Web and Windows, `requestWithAutoBack()` delegates to `permission_handler`'s native
+implementation. On Linux and macOS, where `permission_handler` ships no platform code,
+it short-circuits to `PermissionStatus.granted` so calls don't throw.
+
 ## Demo
 
 ![Permission auto-back demo](https://raw.githubusercontent.com/lequangkydev/permission_handler_auto_back/main/screenshots/demo_auto.gif)

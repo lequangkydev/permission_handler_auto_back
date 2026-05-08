@@ -1,6 +1,6 @@
 name: permission_handler_auto_back
 description: "Wraps permission_handler and brings your Flutter app back to the foreground on Android after the user grants a special permission in Settings."
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/lequangkydev/permission_handler_auto_back
 repository: https://github.com/lequangkydev/permission_handler_auto_back
 issue_tracker: https://github.com/lequangkydev/permission_handler_auto_back/issues
@@ -18,6 +18,8 @@ environment:
 
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_web_plugins:
     sdk: flutter
   permission_handler: ^12.0.0
 
@@ -48,6 +50,15 @@ flutter:
         pluginClass: PermissionHandlerAutoBackPlugin
       ios:
         pluginClass: PermissionHandlerAutoBackPlugin
+      linux:
+        dartPluginClass: PermissionHandlerAutoBackPlatform
+      macos:
+        dartPluginClass: PermissionHandlerAutoBackPlatform
+      windows:
+        dartPluginClass: PermissionHandlerAutoBackPlatform
+      web:
+        pluginClass: PermissionHandlerAutoBackWeb
+        fileName: src/permission_auto_back_web.dart
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

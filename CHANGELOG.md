@@ -1,3 +1,13 @@
+## 0.0.2
+
+* Declare plugin support for Web, Windows, Linux and macOS so pub.dev no
+  longer flags them as unsupported. The auto-back behaviour stays
+  Android-only; on Web and Windows `requestWithAutoBack()` delegates to
+  `permission_handler`'s native implementation, and on Linux/macOS — where
+  `permission_handler` ships no platform code — it short-circuits to
+  `PermissionStatus.granted` instead of throwing
+  `MissingPluginException`.
+
 ## 0.0.1
 
 Initial release. Re-exports `permission_handler` and adds the
