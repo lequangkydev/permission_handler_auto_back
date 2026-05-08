@@ -1,0 +1,26 @@
+# Demo media — committed to the repo so the README renders on pub.dev,
+# but excluded from the published package to keep the download lightweight.
+screenshots/
+
+# Build / tooling artefacts (mirror of .gitignore — when .pubignore exists
+# pub no longer falls back to .gitignore, so the rules are repeated here).
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+pubspec.lock
+**/doc/api/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+*.log
+*.swp
